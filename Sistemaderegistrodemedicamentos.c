@@ -14,7 +14,22 @@ int main(int argc, char *argv[]) {
     struct Medicamento lista[100];
     int total = 0;
 	int opcao;
-    
+    FILE *f = fopen("dados.txt", "r");
+
+if(f != NULL){
+   
+   
+   
+    while(fscanf(f, "%s | %d | %s | %s\n",
+        lista[total].nome,
+        &lista[total].quantidade,
+        lista[total].dias,
+        lista[total].horarios) != EOF){
+
+        total++;
+    }
+    fclose(f);
+}
 	do {
     printf("\n===============================\n");
 	printf("\n----- MENU -----\n");
@@ -37,7 +52,8 @@ int main(int argc, char *argv[]) {
     switch(opcao) {
 
     case 1:
-        system("cls");
+        
+		system("cls");
 		if(total <100){
 		printf("Cadastrar...\n");
 		printf("Nome: ");
@@ -49,24 +65,20 @@ int main(int argc, char *argv[]) {
 		printf("Horarios: ");
 		scanf("%s", lista[total].horarios);
 		
-		total++;
-		
 		FILE *f = fopen("dados.txt", "a");
 
-        if(f != NULL){
-        fprintf(f, "%s | %d | %s | %s\n",lista[total-1].nome,
-		lista[total-1].quantidade,
-		lista[total-1].dias,
-		lista[total-1].horarios);
-        fclose(f);
+if(f != NULL){
+    fprintf(f, "%s | %d | %s | %s\n",
+        lista[total-1].nome,
+        lista[total-1].quantidade,
+        lista[total-1].dias,
+        lista[total-1].horarios
+    );
+    fclose(f);
 }
+		total++;
 		
-		printf("Medicamentos cadsatrado com sucesso!!!\n");
-		
-		}else {
-		printf("limite foi atingido doido!!!");
-		}
-		
+}
         break;
     
 	case 2:
